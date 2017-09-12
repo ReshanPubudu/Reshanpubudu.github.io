@@ -1,0 +1,38 @@
+#box{
+    position: absolute;
+}
+.col-id{
+    height: 10px;
+    width: 51px;
+    display: inline-block;
+    text-align: center;
+    font-size: small;
+}
+.row-id{
+    height: 51px;
+    width: 10px;
+    display: inline;
+    text-align: center;
+    font-size: small;
+    vertical-align: text-top;
+}
+.sqr{
+    height: 55px;
+    width: 55px;
+    display: inline-block;
+    float: left;
+}
+.sqr-white{
+    background-color: whitesmoke;
+    box-shadow: inset 0 0 1em rgba(39,210,99,0.67);
+}
+.sqr-black{
+    background-color: rgba(196,146,15,0.67);
+    box-shadow: inset 0 0 1em rgba(112,32,4,0.67);
+}
+.peass{
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    margin: 4px;
+}
