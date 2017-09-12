@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chess Man</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <style>
+        #box{
+            position: absolute;
+        }
+        .col-id{
+            height: 10px;
+            width: 51px;
+            display: inline-block;
+            text-align: center;
+            font-size: small;
+        }
+        .row-id{
+            height: 51px;
+            width: 10px;
+            display: inline;
+            text-align: center;
+            font-size: small;
+            vertical-align: text-top;
+        }
+        .sqr{
+            height: 55px;
+            width: 55px;
+            display: inline-block;
+            float: left;
+        }
+        .sqr-white{
+            background-color: whitesmoke;
+            box-shadow: inset 0 0 1em rgba(39,210,99,0.67);
+        }
+        .sqr-black{
+            background-color: rgba(196,146,15,0.67);
+            box-shadow: inset 0 0 1em rgba(112,32,4,0.67);
+        }
+        .peass{
+            height: 48px;
+            cursor: pointer;
+            position: relative;
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+<br><br><br>
+<div class="container">
+    <div id="box">
+        <div id="row-1" class="row">
+            <div>
+                <div class="col-id">a</div>
+                <div class="col-id">b</div>
+                <div class="col-id">c</div>
+                <div class="col-id">d</div>
+                <div class="col-id">e</div>
+                <div class="col-id">f</div>
+                <div class="col-id">g</div>
+                <div class="col-id">h</div>
+            </div>
+            <div class="row-id">8</div>
+            <div id="a-8" class="sqr sqr-black rook" onclick="mouseClick(this)"><img src="images/blackRook.png" alt="" id="blk-rook-a-8" class="peass"></div>
+            <div id="b-8" class="sqr sqr-white knight" onclick="mouseClick(this)"><img src="images/blackKnight.png" alt="" id="blk-knight-b-8" class="peass"></div>
+            <div id="c-8" class="sqr sqr-black bishop" onclick="mouseClick(this)"><img src="images/blackBishop.png" alt="" id="blk-bishop-c-8" class="peass"></div>
+            <div id="d-8" class="sqr sqr-white queen" onclick="mouseClick(this)"><img src="images/blackQueen.png" alt="" id="blk-queen-d-8" class="peass"></div>
+            <div id="e-8" class="sqr sqr-black king" onclick="mouseClick(this)"><img src="images/blackKing.png" alt="" id="blk-king-e-8" class="peass"></div>
+            <div id="f-8" class="sqr sqr-white bishop" onclick="mouseClick(this)"><img src="images/blackBishop.png" alt="" id="blk-bishop-f-8" class="peass"></div>
+            <div id="g-8" class="sqr sqr-black knight" onclick="mouseClick(this)"><img src="images/blackKnight.png" alt="" id="blk-knight-g-8" class="peass"></div>
+            <div id="h-8" class="sqr sqr-white rook" onclick="mouseClick(this)"><img src="images/blackRook.png" alt="" id="blk-rook-h-8" class="peass"></div>
+            <!--<div id="a-8" class="sqr sqr-black rook"><div id="blk-rook-a-8" class="peass" onclick="mouseClick(this)">&#9820</div></div>
+            <div id="b-8" class="sqr sqr-white knight"><div id="blk-knight-b-8" class="peass" onclick="mouseClick(this)">&#9822</div></div>
+            <div id="c-8" class="sqr sqr-black bishop"><div id="blk-bishop-c-8" class="peass" onclick="mouseClick(this)">&#9821</div></div>
+            <div id="d-8" class="sqr sqr-white queen"><div id="blk-queen-d-8" class="peass" onclick="mouseClick(this)">&#9818</div></div>
+            <div id="e-8" class="sqr sqr-black king"><div id="blk-king-e-8" class="peass" onclick="mouseClick(this)">&#9819</div></div>
+            <div id="f-8" class="sqr sqr-white bishop"><div id="blk-bishop-f-8" class="peass" onclick="mouseClick(this)">&#9821</div></div>
+            <div id="g-8" class="sqr sqr-black knight"><div id="blk-knight-g-8" class="peass" onclick="mouseClick(this)">&#9822</div></div>
+            <div id="h-8" class="sqr sqr-white rook"><div id="blk-rook-h-8" class="peass" onclick="mouseClick(this)">&#9820</div></div>-->
+            <div class="row-id">8</div>
+        </div>
+            <div id="row-2" class="row">
+                <div class="row-id">7</div>
+                <div id="a-7" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-a-7" class="peass"></div>
+                <div id="b-7" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-b-7" class="peass"></div>
+                <div id="c-7" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-c-7" class="peass"></div>
+                <div id="d-7" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-d-7" class="peass"></div>
+                <div id="e-7" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-e-7" class="peass"></div>
+                <div id="f-7" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-f-7" class="peass"></div>
+                <div id="g-7" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-g-7" class="peass"></div>
+                <div id="h-7" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/blackpown.png" alt="" id="blk-pawn-h-7" class="peass"></div>
+                <!--<div id="a-7" class="sqr sqr-white"><div id="blk-pawn-a-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>
+                    <div id="b-7" class="sqr sqr-black"><div id="blk-pawn-b-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>
+                    <div id="c-7" class="sqr sqr-white"><div id="blk-pawn-c-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>
+                    <div id="d-7" class="sqr sqr-black"><div id="blk-pawn-d-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>
+                    <div id="e-7" class="sqr sqr-white"><div id="blk-pawn-e-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>
+                    <div id="f-7" class="sqr sqr-black"><div id="blk-pawn-f-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>
+                    <div id="g-7" class="sqr sqr-white"><div id="blk-pawn-g-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>
+                    <div id="h-7" class="sqr sqr-black"><div id="blk-pawn-h-7" class="peass" onclick="mouseClick(this)">&#9823</div></div>-->
+                <div class="row-id">7</div>
+            </div>
+            <div id="row-3" class="row">
+                <div class="row-id">6</div>
+                <div id="a-6" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="b-6" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="c-6" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="d-6" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="e-6" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="f-6" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="g-6" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="h-6" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div class="row-id">6</div>
+            </div>
+            <div id="row-4" class="row">
+                <div class="row-id">5</div>
+                <div id="a-5" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="b-5" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="c-5" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="d-5" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="e-5" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="f-5" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="g-5" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="h-5" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div class="row-id">5</div>
+            </div>
+            <div id="row-5" class="row">
+                <div class="row-id">4</div>
+                <div id="a-4" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="b-4" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="c-4" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="d-4" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="e-4" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="f-4" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="g-4" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="h-4" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div class="row-id">4</div>
+            </div>
+            <div id="row-6" class="row">
+                <div class="row-id">3</div>
+                <div id="a-3" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="b-3" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="c-3" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="d-3" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="e-3" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="f-3" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div id="g-3" class="sqr sqr-white" onclick="mouseClick(this)"></div>
+                <div id="h-3" class="sqr sqr-black" onclick="mouseClick(this)"></div>
+                <div class="row-id">3</div>
+            </div>
+            <div id="row-7" class="row">
+                <div class="row-id">2</div>
+                <div id="a-2" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-a-2" class="peass"></div>
+                <div id="b-2" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-b-2" class="peass"></div>
+                <div id="c-2" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-c-2" class="peass"></div>
+                <div id="d-2" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-d-2" class="peass"></div>
+                <div id="e-2" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-e-2" class="peass"></div>
+                <div id="f-2" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-f-2" class="peass"></div>
+                <div id="g-2" class="sqr sqr-black" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-g-2" class="peass"></div>
+                <div id="h-2" class="sqr sqr-white" onclick="mouseClick(this)"><img src="images/whitepown.png" alt="" id="white-pawn-h-2" class="peass"></div>
+                <!--<div id="a-2" class="sqr sqr-black"><div id="white-pawn-a-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>
+                    <div id="b-2" class="sqr sqr-white"><div id="white-pawn-b-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>
+                    <div id="c-2" class="sqr sqr-black"><div id="white-pawn-c-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>
+                    <div id="d-2" class="sqr sqr-white"><div id="white-pawn-d-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>
+                    <div id="e-2" class="sqr sqr-black"><div id="white-pawn-e-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>
+                    <div id="f-2" class="sqr sqr-white"><div id="white-pawn-f-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>
+                    <div id="g-2" class="sqr sqr-black"><div id="white-pawn-g-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>
+                    <div id="h-2" class="sqr sqr-white"><div id="white-pawn-h-2" class="peass" onclick="mouseClick(this)">&#9817</div></div>-->
+                <div class="row-id">2</div>
+            </div>
+            <div id="row-8" class="row">
+                <div class="row-id">1</div>
+                <div id="a-1" class="sqr sqr-white rook" onclick="mouseClick(this)"><img src="images/whiteRook.png" alt="" id="white-rook-a-1" class="peass"></div>
+                <div id="b-1" class="sqr sqr-black knight" onclick="mouseClick(this)"><img src="images/whiteKnight.png" alt="" id="white-knight-b-1" class="peass"></div>
+                <div id="c-1" class="sqr sqr-white bishop" onclick="mouseClick(this)"><img src="images/whiteBishop.png" alt="" id="white-bishop-c-1" class="peass"></div>
+                <div id="d-1" class="sqr sqr-black king" onclick="mouseClick(this)"><img src="images/whiteKing.ico" alt="" id="white-king-d-1" class="peass"></div>
+                <div id="e-1" class="sqr sqr-white queen" onclick="mouseClick(this)"><img src="images/whiteQueen.png" alt="" id="white-queen-e-1" class="peass"></div>
+                <div id="f-1" class="sqr sqr-black bishop" onclick="mouseClick(this)"><img src="images/whiteBishop.png" alt="" id="white-bishop-f-1" class="peass"></div>
+                <div id="g-1" class="sqr sqr-white knight" onclick="mouseClick(this)"><img src="images/whiteKnight.png" alt="" id="white-knight-g-1" class="peass"></div>
+                <div id="h-1" class="sqr sqr-black rook" onclick="mouseClick(this)"><img src="images/whiteRook.png" alt="" id="white-rook-h-1" class="peass"></div>
+                <!--<div id="white-rook-a-1" class="peass" onclick="mouseClick(this)">&#9814</div>-->
+                <!--<div id="white-knight-b-1" class="peass" onclick="mouseClick(this)">&#9816</div>-->
+                <!--<div id="white-bishop-c-1" class="peass" onclick="mouseClick(this)">&#9815</div>-->
+                <!--<div id="white-king-d-1" class="peass"onclick="mouseClick(this)">&#9813</div>-->
+                <!--<div id="white-queen-e-1" class="peass" onclick="mouseClick(this)">&#9812</div>-->
+                <!--<div id="white-bishop-f-1" class="peass" onclick="mouseClick(this)">&#9815</div>-->
+                <!--<div id="white-knight-g-1" class="peass" onclick="mouseClick(this)">&#9816</div>-->
+                <!--<div id="white-rook-h-1" class="peass" onclick="mouseClick(this)">&#9814</div>-->
+                <div class="row-id">1</div>
+                <div>
+                    <div class="col-id">a</div>
+                    <div class="col-id">b</div>
+                    <div class="col-id">c</div>
+                    <div class="col-id">d</div>
+                    <div class="col-id">e</div>
+                    <div class="col-id">f</div>
+                    <div class="col-id">g</div>
+                    <div class="col-id">h</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <li id="out"><output></output></li>
+
+
+    <script src= "js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/Controllers.js"></script>
+    <script>
+
+        var peases=["#a-1","#b-1","#c-1","#d-1","#e-1","#f-1","#g-1","#h-1",
+                    "#a-2","#b-2","#c-2","#d-2","#e-2","#f-2","#g-2","#h-2",
+                    "#a-7","#b-7","#c-7","#d-7","#e-7","#f-7","#g-7","#h-7",
+                    "#a-8","#b-8","#c-8","#d-8","#e-8","#f-8","#g-8","#h-8"];
+
+        var guested =[];
+        var rodBlck =[];
+        var clicked = null;
+
+        function gestWhitePawn(ev) {
+            var uni= ev[0];
+            var num = ev[1];
+            var g = 0,rb = 0; guested =[]; rodBlck =[];
+            if(num==2){
+                $("#"+String.fromCharCode(uni)+"-"+ ++num).css("background-color","rgba(181,255,30,0.67)");
+                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+                $("#"+String.fromCharCode(uni)+"-"+ ++num).css("background-color","rgba(181,255,30,0.67)");
+                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+            }else{
+                $("#"+String.fromCharCode(uni)+"-"+ ++num).css("background-color","rgba(181,255,30,0.67)");
+                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+            }
+        }
+
+        function gestBlackPawn(ev) {
+            var uni= ev[0];
+            var num = ev[1];
+            var g = 0,rb = 0; guested =[]; rodBlck =[];
+            if(num==7) {
+                while(num--!=5){
+                    $("#"+String.fromCharCode(uni)+"-"+ num).css("background-color","rgba(181,255,30,0.67)");
+                    guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+                }
+//                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+//                $("#"+String.fromCharCode(uni)+"-"+ --num).css("background-color","rgba(181,255,30,0.67)");
+//                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+            }else{
+                $("#"+String.fromCharCode(uni)+"-"+ --num).css("background-color","rgba(181,255,30,0.67)");
+                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+            }
+        }
+
+        function gestRook(ev) {
+            var uni= ev[0];
+            var num = ev[1];
+            var g = 0,rb = 0; guested =[]; rodBlck =[];
+            for(var i=97;i<105;i++){
+                L1:for(var j=1;j<9;j++){
+                    var id = (i==uni || j==num ? ("#"+String.fromCharCode(i)+"-"+j):null);
+                    if(id!=null){
+                        for(var x =0;x<peases.length;x++){
+                            if(peases[x]==id&&id!="#"+String.fromCharCode(uni)+"-"+num){
+                                rodBlck[rb++] = id;
+                                continue L1;
+                            }
+                        }
+                        $(id).css("background-color","rgba(181,255,30,0.67)");
+                        if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                    }
+                }
+            }
+        }
+
+        function gestKnight(ev){
+            var uni= ev[0];
+            var num = ev[1];
+            var g = 0,rb = 0; guested =[]; rodBlck =[];
+            for(var i=97;i<105;i++){
+                L1:for(var j=1;j<9;j++){
+                    var id =((i==uni+2&&j==num+1)||(i==uni+1&&j==num+2)||(i==uni+2&&j==num-1)||(i==uni+1&&j==num-2)||(i==uni-2&&j==num+1)||(i==uni-1&&j==num+2)||(i==uni-2&&j==num-1)||(i==uni-1&&j==num-2)||("#"+String.fromCharCode(i)+"-"+j=="#"+String.fromCharCode(uni)+"-"+num)?("#"+String.fromCharCode(i)+"-"+j):null);
+                    if(id!=null){
+                        for(var x =0;x<peases.length;x++){
+                            if(peases[x]==id&&id!="#"+String.fromCharCode(uni)+"-"+num){
+                                rodBlck[rb++] = id;
+                                continue L1;
+                            }
+                        }
+                        $(id).css("background-color","rgba(181,255,30,0.67)");
+                        if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                    }
+                }
+            }
+        }
+
+        function gestBishop(ev) {
+            var uni= ev[0];
+            var num = ev[1];
+            var g = 0,rb = 0; guested =[]; rodBlck =[];
+            for(var i=97;i<105;i++){
+                L1:for(var j=1;j<9;j++){
+                    var id =((uni-i==num-j)||(uni-i==-(num-j))? ("#"+String.fromCharCode(i)+"-"+j):null);
+                    if(id!=null){
+                        for(var x =0;x<peases.length;x++){
+                            if(peases[x]==id&&id!="#"+String.fromCharCode(uni)+"-"+num){
+                                rodBlck[rb++] = id;
+                                continue L1;
+                            }
+                        }
+                        $(id).css("background-color","rgba(181,255,30,0.67)");
+                        if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                    }
+                }
+            }
+        }
+
+        function gestQueen(ev){
+            var uni= ev[0];
+            var num = ev[1];
+            var g = 0,rb = 0; guested =[]; rodBlck =[];
+            for(var i=97;i<105;i++) {
+                L1:for (var j = 1; j < 9; j++) {
+                    var id = (i==uni||j==num||(uni-i==num-j)||(uni-i==-(num-j))?("#"+String.fromCharCode(i)+"-"+j):null);
+                    if (id != null) {
+                        for (var x = 0; x < peases.length; x++) {
+                            if(peases[x]==id&&id!="#"+String.fromCharCode(uni)+"-"+num){
+                                rodBlck[rb++] = id;
+                                continue L1;
+                            }
+                        }
+                        $(id).css("background-color", "rgba(181,255,30,0.67)");
+                        if (id != "#" + String.fromCharCode(uni) + "-" + num) guested[g++] = id;
+                    }
+                }
+            }
+        }
+
+        function gestKing(ev) {
+            var uni= ev[0];
+            var num = ev[1];
+            var g = 0,rb = 0; guested =[]; rodBlck =[];
+            for(var i=97;i<105;i++){
+                L1:for(var j=1;j<9;j++){
+                    var id = ((num-j==1||num-j==-1||num==j)&&(uni-i==1||uni-i==-1||uni==i)? ("#"+String.fromCharCode(i)+"-"+j):null);
+                    if(id!=null){
+                        for(var x =0;x<peases.length;x++){
+                            if(peases[x]==id&&id!="#"+String.fromCharCode(uni)+"-"+num){
+                                rodBlck[rb++] = id;
+                                continue L1;
+                            }
+                        }
+                        $(id).css("background-color","rgba(181,255,30,0.67)");
+                        if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                    }
+                }
+            }
+        }
+
+        function resetBackground(){
+            $(".sqr-white").css("background-color","whitesmoke");
+            $(".sqr-white").css("box-shadow","inset 0 0 1em rgba(39,210,99,0.67)");
+            $(".sqr-black").css("background-color","rgba(196,146,15,0.67)");
+            $(".sqr-black").css("box-shadow","inset 0 0 1em rgba(112,32,4,0.67)");
+        }
+
+        function mouseClick(ev) {
+            resetBackground();
+            if(clicked==null || $("#"+ev.id).children("img").prop("id")!=null){
+                clicked = $("#"+ev.id).children("img").prop("id");
+                var id = $("#"+ev.id).prop('id');
+                var string= id.match(/[A-z]/g).join("");
+                var uni = parseInt(string.charCodeAt(0));
+                var num= parseInt(id.match(/\d/g));
+                $(id).css("background-color","rgba(181,255,30,0.67)");
+                var arr = [uni,num];
+                switch ($("#"+ev.id).children().prop("id")) {
+                    case "white-rook-a-1"   :
+                    case "white-rook-h-1"   :
+                    case "blk-rook-a-8"     :
+                    case "blk-rook-h-8"     : gestRook(arr); break;
+                    case "white-knight-b-1" :
+                    case "white-knight-g-1" :
+                    case "blk-knight-b-8"   :
+                    case "blk-knight-g-8"   : gestKnight(arr); break;
+                    case "white-bishop-c-1" :
+                    case "white-bishop-f-1" :
+                    case "blk-bishop-c-8"   :
+                    case "blk-bishop-f-8"   : gestBishop(arr); break;
+                    case "white-king-d-1"   :
+                    case "blk-king-e-8"     : gestKing(arr); break;
+                    case "white-queen-e-1"  :
+                    case "blk-queen-d-8"    : gestQueen(arr); break;
+                    case "white-pawn-a-2"   :
+                    case "white-pawn-b-2"   :
+                    case "white-pawn-c-2"   :
+                    case "white-pawn-d-2"   :
+                    case "white-pawn-e-2"   :
+                    case "white-pawn-f-2"   :
+                    case "white-pawn-g-2"   :
+                    case "white-pawn-h-2"   : gestWhitePawn(arr); break;
+                    case "blk-pawn-a-7"     :
+                    case "blk-pawn-b-7"     :
+                    case "blk-pawn-c-7"     :
+                    case "blk-pawn-d-7"     :
+                    case "blk-pawn-e-7"     :
+                    case "blk-pawn-f-7"     :
+                    case "blk-pawn-g-7"     :
+                    case "blk-pawn-h-7"     : gestBlackPawn(arr); break;
+                }
+            }else{
+                for(var x =0;x<guested.length;x++) {
+                    if(guested[x]=="#" + ev.id){
+                        var peas = $("#" + clicked).clone();
+                        var oldId = "#"+$("#"+clicked).parent("div").prop("id");
+                        $("#"+clicked).remove();
+                        $("#"+ev.id).append(peas);
+                        for(var y=0;y<peases.length;y++){
+                            if(peases[y]==oldId) {
+                                peases[y] = "#"+ev.id;
+                                break;
+                            }
+                        }
+                        clicked = null;
+                        break;
+                    }
+                }
+            }
+        }
+
+//        $(".sqr").click(peasesMove(this));
+
+//        function peasesMove(ev) {
+//            if(clicked==null);
+//            else{
+//                console.log(clicked);
+//                console.log("#"+ev.id);
+//                var peas = $(clicked).clone();
+//                $(clicked).remove();
+//                $("#"+ev.id).append(peas);
+//                clicked = null;
+//            }
+////            var id = $('#ev.sqr').last().parent().prop('id')
+////            console.log(id);
+//        }
+
+//        var videoElement = document.getElementById('queen');
+//        var idOfElement = videoElement.getAttribute('id');
+//        console.log(idOfElement);
+//        jQuery("#white-rook-a-1").detach().appendTo('#a-3')
+//        jQuery("#white-rook-a-1").appendTo('#a-3')
+
+
+    </script>
+</body>
+</html>
