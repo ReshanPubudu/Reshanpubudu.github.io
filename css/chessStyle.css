@@ -3,13 +3,13 @@
 }
 .col-id{
     height: 10px;
-    width: 51px;
+    width: 61px;
     display: inline-block;
     text-align: center;
     font-size: small;
 }
 .row-id{
-    height: 51px;
+    height: 61px;
     width: 10px;
     display: inline;
     text-align: center;
@@ -17,8 +17,8 @@
     vertical-align: text-top;
 }
 .sqr{
-    height: 55px;
-    width: 55px;
+    height: 65px;
+    width: 65px;
     display: inline-block;
     float: left;
 }
@@ -31,7 +31,7 @@
     box-shadow: inset 0 0 1em rgba(112,32,4,0.67);
 }
 .peass{
-    height: 48px;
+    height: 52px;
     cursor: pointer;
     position: relative;
     margin: 4px;

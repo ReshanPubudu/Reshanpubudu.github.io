@@ -6,47 +6,55 @@ var peases=["#a-1","#b-1","#c-1","#d-1","#e-1","#f-1","#g-1","#h-1",
     "#a-7","#b-7","#c-7","#d-7","#e-7","#f-7","#g-7","#h-7",
     "#a-8","#b-8","#c-8","#d-8","#e-8","#f-8","#g-8","#h-8"];
 
-var guested =[];
+var tempGuested =[];
+var guested = [];
 var rodBlck =[];
 var clicked = null;
 
 function gestWhitePawn(ev) {
     var uni= ev[0];
     var num = ev[1];
-    var g = 0,rb = 0; guested =[]; rodBlck =[];
-    if(num==2){
-        $("#"+String.fromCharCode(uni)+"-"+ ++num).css("background-color","rgba(181,255,30,0.67)");
-        guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
-        $("#"+String.fromCharCode(uni)+"-"+ ++num).css("background-color","rgba(181,255,30,0.67)");
-        guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
-    }else{
-        $("#"+String.fromCharCode(uni)+"-"+ ++num).css("background-color","rgba(181,255,30,0.67)");
-        guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
-    }
+    var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
+    var cnt = 0;
+    $("#"+String.fromCharCode(uni)+"-"+ num).css("background-color","rgba(181,255,30,0.67)");
+    if(num==2) cnt=num+2; else cnt=num+1;
+    L1:while(num++!=cnt){
+        var id = "#"+String.fromCharCode(uni)+"-"+ num;
+        for(var x =0;x<peases.length;x++){
+            if(peases[x]==id){
+                rodBlck[rb++] = id;
+                continue L1;
+            }
+        }
+        $(id).css("background-color","rgba(181,255,30,0.67)");
+        tempGuested[g++] = id;
+    }guested = tempGuested;
 }
 
 function gestBlackPawn(ev) {
     var uni= ev[0];
     var num = ev[1];
-    var g = 0,rb = 0; guested =[]; rodBlck =[];
-    if(num==7) {
-        while(num--!=5){
-            $("#"+String.fromCharCode(uni)+"-"+ num).css("background-color","rgba(181,255,30,0.67)");
-            guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
+    var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
+    var cnt = 0;
+    $("#"+String.fromCharCode(uni)+"-"+ num).css("background-color","rgba(181,255,30,0.67)");
+    if(num==7) cnt=num-2; else cnt=num-1;
+    L1:while(num--!=cnt){
+        var id = "#"+String.fromCharCode(uni)+"-"+ num;
+        for(var x =0;x<peases.length;x++){
+            if(peases[x]==id){
+                rodBlck[rb++] = id;
+                continue L1;
+            }
         }
-//                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
-//                $("#"+String.fromCharCode(uni)+"-"+ --num).css("background-color","rgba(181,255,30,0.67)");
-//                guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
-    }else{
-        $("#"+String.fromCharCode(uni)+"-"+ --num).css("background-color","rgba(181,255,30,0.67)");
-        guested[g++] = "#"+String.fromCharCode(uni)+"-"+ num ;
-    }
+        $(id).css("background-color","rgba(181,255,30,0.67)");
+        tempGuested[g++] = id;
+    }guested = tempGuested;
 }
 
 function gestRook(ev) {
     var uni= ev[0];
     var num = ev[1];
-    var g = 0,rb = 0; guested =[]; rodBlck =[];
+    var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
     for(var i=97;i<105;i++){
         L1:for(var j=1;j<9;j++){
             var id = (i==uni || j==num ? ("#"+String.fromCharCode(i)+"-"+j):null);
@@ -57,17 +65,17 @@ function gestRook(ev) {
                         continue L1;
                     }
                 }
-                $(id).css("background-color","rgba(181,255,30,0.67)");
-                if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                if(id!="#"+String.fromCharCode(uni)+"-"+num) tempGuested[g++] = id;
             }
         }
     }
+    gestRookMoved("#"+String.fromCharCode(uni)+"-"+num);
 }
 
 function gestKnight(ev){
     var uni= ev[0];
     var num = ev[1];
-    var g = 0,rb = 0; guested =[]; rodBlck =[];
+    var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
     for(var i=97;i<105;i++){
         L1:for(var j=1;j<9;j++){
             var id =((i==uni+2&&j==num+1)||(i==uni+1&&j==num+2)||(i==uni+2&&j==num-1)||(i==uni+1&&j==num-2)||(i==uni-2&&j==num+1)||(i==uni-1&&j==num+2)||(i==uni-2&&j==num-1)||(i==uni-1&&j==num-2)||("#"+String.fromCharCode(i)+"-"+j=="#"+String.fromCharCode(uni)+"-"+num)?("#"+String.fromCharCode(i)+"-"+j):null);
@@ -79,16 +87,16 @@ function gestKnight(ev){
                     }
                 }
                 $(id).css("background-color","rgba(181,255,30,0.67)");
-                if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                if(id!="#"+String.fromCharCode(uni)+"-"+num) tempGuested[g++] = id;
             }
         }
-    }
+    }guested = tempGuested;
 }
 
 function gestBishop(ev) {
     var uni= ev[0];
     var num = ev[1];
-    var g = 0,rb = 0; guested =[]; rodBlck =[];
+    var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
     for(var i=97;i<105;i++){
         L1:for(var j=1;j<9;j++){
             var id =((uni-i==num-j)||(uni-i==-(num-j))? ("#"+String.fromCharCode(i)+"-"+j):null);
@@ -99,17 +107,19 @@ function gestBishop(ev) {
                         continue L1;
                     }
                 }
-                $(id).css("background-color","rgba(181,255,30,0.67)");
-                if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                // $(id).css("background-color", "rgba(181,255,30,0.67)");
+                if(id!="#"+String.fromCharCode(uni)+"-"+num) tempGuested[g++] = id;
             }
         }
     }
+    // guested = tempGuested;
+    gestBishopMoved("#"+String.fromCharCode(uni)+"-"+num);
 }
-
+console
 function gestQueen(ev){
     var uni= ev[0];
     var num = ev[1];
-    var g = 0,rb = 0; guested =[]; rodBlck =[];
+    var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
     for(var i=97;i<105;i++) {
         L1:for (var j = 1; j < 9; j++) {
             var id = (i==uni||j==num||(uni-i==num-j)||(uni-i==-(num-j))?("#"+String.fromCharCode(i)+"-"+j):null);
@@ -121,16 +131,16 @@ function gestQueen(ev){
                     }
                 }
                 $(id).css("background-color", "rgba(181,255,30,0.67)");
-                if (id != "#" + String.fromCharCode(uni) + "-" + num) guested[g++] = id;
+                if (id != "#" + String.fromCharCode(uni) + "-" + num) tempGuested[g++] = id;
             }
         }
-    }
+    }guested = tempGuested;
 }
 
 function gestKing(ev) {
     var uni= ev[0];
     var num = ev[1];
-    var g = 0,rb = 0; guested =[]; rodBlck =[];
+    var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
     for(var i=97;i<105;i++){
         L1:for(var j=1;j<9;j++){
             var id = ((num-j==1||num-j==-1||num==j)&&(uni-i==1||uni-i==-1||uni==i)? ("#"+String.fromCharCode(i)+"-"+j):null);
@@ -142,10 +152,11 @@ function gestKing(ev) {
                     }
                 }
                 $(id).css("background-color","rgba(181,255,30,0.67)");
-                if(id!="#"+String.fromCharCode(uni)+"-"+num) guested[g++] = id;
+                if(id!="#"+String.fromCharCode(uni)+"-"+num) tempGuested[g++] = id;
             }
         }
     }
+    guested = tempGuested;
 }
 
 function resetBackground(){
@@ -159,12 +170,8 @@ function mouseClick(ev) {
     resetBackground();
     if(clicked==null || $("#"+ev.id).children("img").prop("id")!=null){
         clicked = $("#"+ev.id).children("img").prop("id");
-        var id = $("#"+ev.id).prop('id');
-        var string= id.match(/[A-z]/g).join("");
-        var uni = parseInt(string.charCodeAt(0));
-        var num= parseInt(id.match(/\d/g));
-        $(id).css("background-color","rgba(181,255,30,0.67)");
-        var arr = [uni,num];
+        var arr = idBreaker("#"+ev.id);
+        $("#"+ev.id).css("background-color","rgba(181,255,30,0.67)");
         switch ($("#"+ev.id).children().prop("id")) {
             case "white-rook-a-1"   :
             case "white-rook-h-1"   :
@@ -216,5 +223,55 @@ function mouseClick(ev) {
                 break;
             }
         }
+        guested= [];
+    }
+}
+
+function idBreaker(ev){
+    var string= ev.match(/[A-z]/g).join("");
+    var uni = parseInt(string.charCodeAt(0));
+    var num= parseInt(ev.match(/\d/g));
+    return [uni,num];
+}
+
+function gestRookMoved(ev) {
+    var id = idBreaker(ev);
+    var topBlk = 9, botmBlk= 0, left = 96,right = 105, g =0; guested = [];
+    for(var i=0;i<rodBlck.length;i++) {
+        var blckId = idBreaker(rodBlck[i]);
+        if (id[1] < blckId[1] && topBlk >= blckId[1]) topBlk = blckId[1];
+        if (id[1] > blckId[1] && botmBlk <= blckId[1]) botmBlk = blckId[1];
+        if (id[0] > blckId[0] && left <= blckId[0]) left = blckId[0];
+        if (id[0] < blckId[0] && right >= blckId[0]) right = blckId[0];
+    }
+    for(var j=0;j<tempGuested.length;j++){
+        var tempId = idBreaker(tempGuested[j]);
+        if((id[0]==tempId[0])&&(tempId[1]<topBlk&&tempId[1]>botmBlk)) guested[g++]=tempGuested[j];
+        else if((id[1]==tempId[1])&&(tempId[0]<right&&tempId[0]>left)) guested[g++]=tempGuested[j];
+    }
+    selectAllMovedSqrs();
+}
+
+function gestBishopMoved(ev) {
+    var id=idBreaker(ev);
+    var g =0; guested = [];
+    for(var i=0;i<rodBlck.length;i++){
+        var rdBlk=idBreaker(rodBlck[i]);
+        for(var j=0;j<tempGuested.length;j++){
+            var tempId = idBreaker(tempGuested[j]);
+            if(rdBlk[0]>id[0]&&rdBlk[1]>id[1]&&tempId[0]<rdBlk[0]&&tempId[1]<rdBlk[1]&&tempId[0]>id[0]&&tempId[1]>id[1]) guested[g++]=tempGuested[j];
+            else if(rdBlk[0]<id[0]&&rdBlk[1]>id[1]&&tempId[0]>rdBlk[0]&&tempId[1]<rdBlk[1]&&tempId[0]<id[0]&&tempId[1]>id[1]) guested[g++]=tempGuested[j];
+            else if(rdBlk[0]<id[0]&&rdBlk[1]<id[1]&&tempId[0]>rdBlk[0]&&tempId[1]>rdBlk[1]&&tempId[0]<id[0]&&tempId[1]<id[1]) guested[g++]=tempGuested[j];
+            else if(rdBlk[0]>id[0]&&rdBlk[1]<id[1]&&tempId[0]<rdBlk[0]&&tempId[1]>rdBlk[1]&&tempId[0]>id[0]&&tempId[1]<id[1]) guested[g++]=tempGuested[j];
+            else if((tempId[0]>id[0]&&tempId[1]>id[1])&&(rdBlk[0]>id[0]&&rdBlk[1]>id[1]))/*||(tempId[0]<id[0]&&tempId[1]>id[1])||(tempId[0]<id[0]&&tempId[1]<id[1])||(tempId[0]>id[0]&&tempId[1]<id[1]))*/ guested[g++]=tempGuested[j];
+        }
+    }
+    selectAllMovedSqrs();
+    console.log("select "+guested);
+}
+
+function selectAllMovedSqrs() {
+    for(var i=0;i<guested.length;i++){
+        $(guested[i]).css("background-color","rgba(181,255,30,0.67)");
     }
 }
