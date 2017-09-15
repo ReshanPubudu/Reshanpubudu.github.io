@@ -1,0 +1,209 @@
+*{
+    /*box-sizing : border-box;*/
+}
+#container{
+    /*border: red medium dotted;*/
+    height: 1490px;
+}
+
+#container-row-1{
+    /*border: yellow medium dotted;*/
+    height:387px;
+    background-image: url(../images/headderImg.jpg);
+}
+
+#chessmaster{
+    font-size: 110px;
+    font-family: 'Tangerine', serif;
+    color: rgba(201,73,36,0.75);
+    text-align: center;
+    margin-top: 100px;
+    text-shadow: 4px 4px 4px #aaa;
+}
+
+#container-row-2{
+    /*border: green medium solid;*/
+    height:150px;
+}
+
+#container-row-3{
+    /*border: green medium dotted;*/
+    height:750px;
+}
+
+#container-row-3-1{
+    /*border: blue medium solid;*/
+    height: 750px;
+    /*margin-left: 0px;*/
+    /*margin-right: 0px;*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+}
+
+#container-row-3-2{
+    /*border: blue medium solid;*/
+    height: 750px;
+    /*align-content: center;*/
+    /*align-items: center;*/
+    /*align-self: center;*/
+    /*background-position: center;*/
+    /*margin-left: 0px;*/
+    /*margin-right: 0px;*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+}
+
+#container-row-3-2-board{
+    /*border: red medium solid;*/
+    height: 520px;
+    width: 520px;
+    margin: 15%;
+    /*size: 550px;*/
+    /*margin-left: 15%;*/
+    /*margin-right: 15%;*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+    /*background-position: center;*/
+    /*align-content: center;*/
+    /*align-items: center;*/
+    /*align-self: center;*/
+}
+
+#container-row-3-3{
+    /*border: blue medium solid;*/
+    height: 750px;
+    /*margin-left: 0px;*/
+    /*margin-right: 0px;*/
+    /*padding-left: 0px;*/
+    /*padding-right: 0px;*/
+}
+
+#container-row-4{
+    /*border: green medium solid;*/
+    /*height:200px;*/
+    background-color: rgba(19,127,247,0.75);
+}
+
+#container-row-4-2{
+    /*border: green medium solid;*/
+    height:200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*body{*/
+    /*margin: 0px;*/
+/*}*/
+
+/*#headder{*/
+    /*height: 387px;*/
+    /*!*background-color: #0d71bb;*!*/
+    /*margin-top: 0px;*/
+    /*background-image: url(../images/headderImg.jpg);*/
+/*}*/
+
+/*#body{*/
+    /*height: 620px;*/
+    /*background-color: yellow;*/
+    /*margin-top: 0px;*/
+    /*margin-left:auto;*/
+    /*margin-right: auto;*/
+    /*!*display: block;*!*/
+/*}*/
+
+/*#footer{*/
+    /*height: 100px;*/
+    /*background-color: #0ea432;*/
+    /*margin-top: 0px;*/
+/*}*/
+
+/*#div1{*/
+    /*height:420px;*/
+    /*background-color: red;*/
+    /*float: left;*/
+    /*!*margin-top: 50px;*!*/
+    /*top: 100px;*/
+    /*!*bottom: 50px;*!*/
+    /*margin-bottom: 50px;*/
+/*}*/
+
+/*#board{*/
+    /*top: 100px;*/
+    /*!*width: 520px;*!*/
+    /*!*background-color: green;*!*/
+    /*height: 520px;*/
+    /*margin: 0 auto;*/
+    /*margin-left:auto;*/
+    /*margin-right: auto;*/
+    /*!*left: 6%;*!*/
+    /*!*fo*!*/
+/*}*/
+
+/*#div2{*/
+    /*height:420px;*/
+    /*background-color: red;*/
+    /*float: right;*/
+    /*top: 100px;*/
+    /*margin-bottom: 50px;*/
+/*}*/
+
+/*#body-2{*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
