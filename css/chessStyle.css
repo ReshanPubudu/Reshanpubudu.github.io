@@ -2,35 +2,69 @@
     box-sizing : border-box;
 }
 
-#container{
-    /*margin: 0 auto;*/
-    /*margin-left:50%;*/
-    /*margin-right: auto;*/
-    position: absolute;
-    /*left: 500px;*/
-    border: solid 0.3em gold;
-    border-top-color: red;
-    /*margin-right: 0px;*/
-    left: 0px;
-    right: 0px;
-    display: inline-block;
+/*#container1{*/
+    /*!*margin: 0 auto;*!*/
+    /*!*margin-left:50%;*!*/
+    /*!*margin-right: auto;*!*/
+    /*position: absolute;*/
+    /*height: 600px;*/
+    /*!*left: 500px;*!*/
+    /*border: solid 0.3em gold;*/
+    /*border-top-color: red;*/
+    /*!*margin-right: 0px;*!*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+    /*display: block;*/
+/*}*/
+#container1{
+    display: block;
+    margin: 0px;
+}
+#container2{
+    display: block;
+    margin: 0px;
+}
+#container3{
+    display: block;
+    margin: 0px;
+}
+
+#box-1{
+    margin-left:0px;
+    margin-right: 0px;
+    color: whitesmoke;
+    font-size: 8px;
+    /*border: solid 0.3em black;*/
+    width: 530px;
 }
 #box{
     position: absolute;
-    margin-left:auto;
-    margin-right: auto;
-    border: solid 0.3em gold;
-    border-top-color: red;
-    width: 530px;
+    margin-left:0px;
+    margin-right: 0px;
+    border: solid 0.3em #0d71bb;
+    border-top-color: #2bbbff;
+    border-bottom-color: #2bbbff;
+    width: 529px;
     display: inline;
 }
+#box-3{
+    margin-left:0px;
+    margin-right: 0px;
+    border: solid 0.3em black;
+    width: 530px;
+}
+
+
 .col-id{
+    /*border: solid #00B5AD 2px;*/
     height: 10px;
-    width: 61px;
+    width: 65px;
     display: inline-block;
     text-align: center;
     font-size: small;
+    vertical-align: baseline;
 }
+
 .row-id{
     height: 61px;
     width: 10px;
@@ -50,7 +84,7 @@
     box-shadow: inset 0 0 1em rgba(39,210,99,0.67);
 }
 .sqr-black{
-    background-color: rgba(196,146,15,0.67);
+    background-color: rgba(196,146,15,0.3);
     box-shadow: inset 0 0 1em rgba(112,32,4,0.67);
 }
 .peass{
@@ -59,11 +93,18 @@
     position: relative;
     margin: 4px;
 }
-#row-1, #row-2{
-    margin-top: 0px;
-    padding-top: 0px;
-    /*display: inline;*/
-}
+
+/*#row-2{*/
+      /*margin-top: 0px;*/
+      /*padding-top: 0px;*/
+      /*width: auto;*/
+      /*!*width: 530px;*!*/
+      /*!*float: left;*!*/
+
+
+      /*display: none;*/
+
+  /*}*/
 /*#test1{*/
     /*height: 65px;*/
     /*width: 65px;*/
@@ -80,3 +121,5 @@
     /*box-shadow: inset 0 0 4em #fffe7f;*/
     /*background-color: #5cfe53;*/
 /*}*/
+
+

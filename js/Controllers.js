@@ -10,10 +10,122 @@ var tempGuested =[];
 var guested = [];
 var rodBlck =[];
 var clicked = null;
-var lastMoving = "peass black";
-var nowMoving = "peass white";
+var lastMoving = ["peass black","blk-king-e-8"];
+var nowMoving = ["peass white","white-king-d-1"];
+var checking = "";
+var check = "";
+var lastMovedPeas=["",""];
+var movinHisrory = "";
 
-function gestWhitePawn(ev) {
+function mouseClick(id){
+    $("#notification").text("");
+    SelectOrMove(id);
+}
+
+function SelectOrMove(id) {
+    resetBackground();
+    if((clicked==null&&$("#" + id).children("img").prop("id") != null&&$("#" + id).children("img").prop("class")==nowMoving[0])||
+        (clicked!=null&&$("#" + id).children("img").prop("id") != null&&$("#" + id).children("img").prop("class")==nowMoving[0])||
+        checking=="checkKing"/*(clicked==null&&$("#" + id).children("img").prop("id") == null&&$("#" + id).children("img").prop("class")!=nowMoving[0])*/){
+        clicked = $("#" + id).children("img").prop("id");
+        if (clicked != null&&$("#" + id).children("img").prop("class")==nowMoving[0]) $("#" + id).css("background-color", "rgba(181,255,30,1)");
+        switch ($("#" + id).children().prop("id")) {
+            case "white-rook-a-1"   :
+            case "white-rook-h-1"   :
+            case "blk-rook-a-8"     :
+            case "blk-rook-h-8"     : gestRook(id); break;
+            case "white-knight-b-1" :
+            case "white-knight-g-1" :
+            case "blk-knight-b-8"   :
+            case "blk-knight-g-8"   : gestKnight(id); break;
+            case "white-bishop-c-1" :
+            case "white-bishop-f-1" :
+            case "blk-bishop-c-8"   :
+            case "blk-bishop-f-8"   : gestBishop(id); break;
+            case "white-king-d-1"   :
+            case "blk-king-e-8"     : gestKing(id); break;
+            case "white-queen-e-1"  :
+            case "blk-queen-d-8"    : gestQueen(id); break;
+            case "white-pawn-a-2"   :
+            case "white-pawn-b-2"   :
+            case "white-pawn-c-2"   :
+            case "white-pawn-d-2"   :
+            case "white-pawn-e-2"   :
+            case "white-pawn-f-2"   :
+            case "white-pawn-g-2"   :
+            case "white-pawn-h-2"   : gestWhitePawn(id); break;
+            case "blk-pawn-a-7"     :
+            case "blk-pawn-b-7"     :
+            case "blk-pawn-c-7"     :
+            case "blk-pawn-d-7"     :
+            case "blk-pawn-e-7"     :
+            case "blk-pawn-f-7"     :
+            case "blk-pawn-g-7"     :
+            case "blk-pawn-h-7"     : gestBlackPawn(id); break;
+        }
+    }else if(clicked!=null&&$("#" + id).children("img").prop("id") == null&&$("#"+clicked).prop("class")==nowMoving[0]){
+        var cnt=0;
+        for (var x = 0; x < guested.length; x++) {
+            if (guested[x]=="#"+id) {
+                var peas = $("#" + clicked).clone();
+                var oldId = "#" + $("#" + clicked).parent("div").prop("id");
+                $("#" + clicked).remove();
+                $("#" + id).append(peas);
+                for (var y = 0; y < peases.length; y++) {
+                    if (peases[y]==oldId) {
+                        peases[y] = "#" + id;
+                        lastMovedPeas =[oldId,"#"+id];
+                        break;
+                    }
+                }
+                movinHisrory+=oldId+" -> #"+id+"  ";
+                $("#container-row-3-1-1").text(movinHisrory);
+                clicked = null;
+                var last = nowMoving[0];
+                nowMoving[0] = lastMoving[0];
+                lastMoving[0] = last;
+                break;
+            }else cnt++;
+        }
+        if(guested.length==cnt) clicked=null;
+        guested = [];
+        checking = "checkKing";
+        // SelectOrMove(id);
+        checking = "";
+    }else if (clicked!=null&&$("#" + id).children("img").prop("id") != null&&$("#"+clicked).prop("class")==nowMoving[0]&&$("#" + id).children("img").prop("class")==lastMoving[0]) {
+        for (var x = 0; x < guested.length; x++) {
+            if (guested[x] == "#"+id/*&&($("#"+id).children("img").prop("id")!=nowMoving[1])*/) {
+                var peas = $("#"+clicked).clone();
+                var oldId = "#"+$("#"+clicked).parent("div").prop("id");
+                var removeId = $("#"+id).parent("div").prop("id");
+                $("#"+clicked).remove();
+                $("#"+id).children("img").remove();
+                $("#"+id).append(peas);
+                for (var y = 0; y < peases.length; y++) {
+                    if (peases[y]==oldId) {
+                        peases[y] = "removed";
+                        lastMovedPeas =[oldId,"#"+id];
+                        break;
+                    }
+                }
+                // $("#container2").css("transform","rotate(180deg)")
+                $("#container2").rotate({ animateTo:180});
+                clicked = null;
+                var last = nowMoving[0];
+                nowMoving[0] = lastMoving[0];
+                lastMoving[0] = last;;
+                break;
+            }
+        }
+        guested = [];
+        checking = "checkKing";
+        // SelectOrMove(id);
+        checking = "";
+    }
+}
+
+function gestWhitePawn(ev1){
+    var ev=idBreaker(ev1);
     var uni= ev[0];
     var num = ev[1];
     var g=0, tg=0, rb=0; tempGuested =[]; rodBlck =[]; guested = [];
@@ -25,41 +137,29 @@ function gestWhitePawn(ev) {
         for(var i=0;i<peases.length;i++){
             if(peases[i]!="removed") {
                 var peas = idBreaker(peases[i]);
-                if((peas[0]==uni&&peas[1]==noCnt)||(peas[0]==uni-1&&peas[1]==num+1)||(peas[0]==uni+1&&peas[1]==num+1)){
-                    rodBlck[rb++]=peases[i];
+                if (peas[0]==uni&&rodBlck[0]==null&&peas[1]==noCnt) rodBlck[0] = peases[i];
+                else if (peas[0]==uni&&rodBlck[0]!=null&&peas[1]==noCnt) {
+                    var tempRB = idBreaker(rodBlck[0]);
+                    if (tempRB[num] > peas[num]) rodBlck[0] = peases[i];
                 }
-                // if(()&&((peas[0]==uni-1&&peas[1]==num+1)||(peas[0]==uni+1&&peas[1]==num+1))){
-                //     tempGuested[rb++]=peases[i];
-                // }
-                // if (peas[0]==uni && rodBlck.length==0 && peas[1]>num && peas[1]==noCnt) rodBlck[0] = peases[i];
-                // else if (peas[0] == uni && rodBlck.length!=0 && peas[1] > num && peas[1] == noCnt) {
-                //     for (var j = 0; j<rodBlck.length; j++) {
-                //         var tempRB = idBreaker(rodBlck[j]);
-                //         if (tempRB[num]>peas[num]&&tempRB[0]==peas[0]) rodBlck[j] = peases[i];
-                //     }
-                // }
-                // if ((peas[0]==uni-1&&peas[1]==num+1)||(peas[0]==uni+1&&peas[1]==num+1)){
-                //     rodBlck[rb++] = peases[i];
-                //     tempGuested[tg++]=peases[i];
-                // }
+                if ((peas[0]==uni-1&&peas[1]==num+1)||(peas[0]==uni+1&&peas[1]==num+1)) tempGuested[tg++] = peases[i];
             }
         }
         tempGuested[tg++] = gustId;
     }
-    console.log(rodBlck);
-    // console.log(tempGuested);
     for(var i=0;i<rodBlck.length;i++){
         for(var j=0;j<tempGuested.length;j++){
             var rdBlk=idBreaker(rodBlck[i]);
             var tempGust=idBreaker(tempGuested[j]);
-            if((tempGust[1]<rdBlk[1]||tempGust[0]==uni-1||tempGust[0]==uni+1)&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++]=tempGuested[j];
+            if((tempGust[1]<rdBlk[1]||tempGust[0]==uni-1||tempGust[0]==uni+1)&&($(tempGuested[j]).children("img").prop("class")!=nowMoving[0]||checking=="checkKing")) guested[g++]=tempGuested[j];
         }
     }
     if(rodBlck[0]==null) guested = tempGuested;
-    selectAllMovedSqrs();
+    selectAllMovedSqrs(ev1);
 }
 
-function gestBlackPawn(ev) {
+function gestBlackPawn(ev1){
+    var ev=idBreaker(ev1);
     var uni= ev[0];
     var num = ev[1];
     var g=0, tg=0; tempGuested =[]; rodBlck =[]; guested = [];
@@ -71,12 +171,11 @@ function gestBlackPawn(ev) {
         for(var i=0;i<peases.length;i++){
             if(peases[i]!="removed") {
                 var peas = idBreaker(peases[i]);
-                if (peas[0] == uni && rodBlck[0] == null && peas[1] < num && peas[1] == noCnt) rodBlck[0] = peases[i];
-                else if (peas[0] == uni && rodBlck[0] != null && peas[1] < num && peas[1] == noCnt) {
+                if (peas[0]==uni&&rodBlck[0]==null&&peas[1]==noCnt) rodBlck[0] = peases[i];
+                else if (peas[0]==uni&&rodBlck[0]!=null&&peas[1]==noCnt) {
                     var tempRB = idBreaker(rodBlck[0]);
-                    if (tempRB[num] < peas[num]) rodBlck[0] = peases[i];
-                }
-                if ((peas[0] == uni + 1 && peas[1] == num - 1) || (peas[0] == uni - 1 && peas[1] == num - 1)) tempGuested[tg++] = peases[i];
+                    if (tempRB[num]<peas[num]) rodBlck[0] = peases[i];}
+                if ((peas[0]==uni+1&&peas[1]==num-1)||(peas[0]==uni-1&&peas[1]==num-1)) tempGuested[tg++] = peases[i];
             }
         }
         tempGuested[tg++] = gustId;
@@ -85,14 +184,15 @@ function gestBlackPawn(ev) {
         for(var j=0;j<tempGuested.length;j++){
             var rdBlk=idBreaker(rodBlck[i]);
             var tempGust=idBreaker(tempGuested[j]);
-            if(tempGust[1]>rdBlk[1]||tempGust[0]==uni-1||tempGust[0]==uni+1&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++]=tempGuested[j];
+            if(tempGust[1]>rdBlk[1]||tempGust[0]==uni-1||tempGust[0]==uni+1&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++]=tempGuested[j];
         }
     }
     if(rodBlck[0]==null) guested = tempGuested;
-    selectAllMovedSqrs();
+    selectAllMovedSqrs(ev1);
 }
 
-function gestRook(ev) {
+function gestRook(ev1){
+    var ev=idBreaker(ev1);
     var uni= ev[0];
     var num = ev[1];
     var g = 0,trb = 0;
@@ -123,10 +223,11 @@ function gestRook(ev) {
         if(tempRdBlk[0]>uni&&tempRdBlk[1]==num&&tempRdBlk[0]<rightRdBlk[0]) rodBlck[3]=tempRodBlk[i];
     }
     gestRookMoved("#"+String.fromCharCode(uni)+"-"+num);
-    selectAllMovedSqrs();
+    selectAllMovedSqrs(ev1);
 }
 
-function gestBishop(ev) {
+function gestBishop(ev1){
+    var ev=idBreaker(ev1);
     var uni= ev[0];
     var num = ev[1];
     var g = 0,trb = 0;
@@ -161,13 +262,14 @@ function gestBishop(ev) {
         if(tempRdBlk[0]>=uni&&tempRdBlk[1]<=num&&tempRdBlk[0]<=rightBtmPart[0]&&tempRdBlk[1]>=rightBtmPart[1]) rodBlck[3]=tempRodBlk[i];
     }
     gestBishopMoved("#"+String.fromCharCode(uni)+"-"+num);
-    selectAllMovedSqrs();
+    selectAllMovedSqrs(ev1);
 }
 
-function gestQueen(ev){
-    gestRook(ev);
+function gestQueen(ev1){
+    var ev=idBreaker(ev1);
+    gestRook(ev1);
     var guest1=guested;
-    gestBishop(ev);
+    gestBishop(ev1);
     var guest2=guested;
     var g=0; guested = [];
     for(var i=0;i<guest1.length;i++){
@@ -178,7 +280,8 @@ function gestQueen(ev){
     }
 }
 
-function gestKnight(ev){
+function gestKnight(ev1){
+    var ev=idBreaker(ev1);
     var uni= ev[0];
     var num = ev[1];
     var g = 0,rb = 0;
@@ -193,15 +296,16 @@ function gestKnight(ev){
                         rodBlck[rb++] = id;
                     }
                 }
-                if(id!="#"+String.fromCharCode(uni)+"-"+num&&$(id).children("img").prop("class")!=nowMoving) tempGuested[g++] = id;
+                if(id!="#"+String.fromCharCode(uni)+"-"+num&&$(id).children("img").prop("class")!=nowMoving[0]) tempGuested[g++] = id;
             }
         }
     }
     guested = tempGuested;
-    selectAllMovedSqrs();
+    selectAllMovedSqrs(ev1);
 }
 
-function gestKing(ev) {
+function gestKing(ev1){
+    var ev=idBreaker(ev1);
     var uni= ev[0];
     var num = ev[1];
     var g = 0,rb = 0; tempGuested =[]; rodBlck =[];
@@ -212,125 +316,19 @@ function gestKing(ev) {
                 for(var x =0;x<peases.length;x++){
                     if(peases[i]!="removed"&&peases[x]==id&&id!="#"+String.fromCharCode(uni)+"-"+num) rodBlck[rb++] = id;
                 }
-                if(id!="#"+String.fromCharCode(uni)+"-"+num&&$(id).children("img").prop("class")!=nowMoving) tempGuested[g++] = id;
+                if(id!="#"+String.fromCharCode(uni)+"-"+num&&$(id).children("img").prop("class")!=nowMoving[0]) tempGuested[g++] = id;
             }
         }
     }
     guested = tempGuested;
-    selectAllMovedSqrs();
+    selectAllMovedSqrs(ev1);
 }
 
 function resetBackground(){
     $(".sqr-white").css("background-color","whitesmoke");
     $(".sqr-white").css("box-shadow","inset 0 0 1em rgba(39,210,99,0.67)");
-    $(".sqr-black").css("background-color","rgba(196,146,15,0.67)");
+    $(".sqr-black").css("background-color","rgba(196,146,15,0.3)");
     $(".sqr-black").css("box-shadow","inset 0 0 1em rgba(112,32,4,0.67)");
-}
-
-function mouseClick(ev) {
-    resetBackground();
-    if((clicked==null&&$("#" + ev.id).children("img").prop("id") != null&&$("#" + ev.id).children("img").prop("class")==nowMoving)||
-        (clicked!=null&&$("#" + ev.id).children("img").prop("id") != null&&$("#" + ev.id).children("img").prop("class")==nowMoving)){// if (clicked == null || $("#" + ev.id).children("img").prop("id") != null) {
-        clicked = $("#" + ev.id).children("img").prop("id");
-        var arr = idBreaker("#" + ev.id);
-        if ($("#" + ev.id).children("img").prop("id") != null) $("#" + ev.id).css("background-color", "rgba(181,255,30,0.67)");
-        switch ($("#" + ev.id).children().prop("id")) {
-            case "white-rook-a-1"   :
-            case "white-rook-h-1"   :
-            case "blk-rook-a-8"     :
-            case "blk-rook-h-8"     :
-                gestRook(arr);
-                break;
-            case "white-knight-b-1" :
-            case "white-knight-g-1" :
-            case "blk-knight-b-8"   :
-            case "blk-knight-g-8"   :
-                gestKnight(arr);
-                break;
-            case "white-bishop-c-1" :
-            case "white-bishop-f-1" :
-            case "blk-bishop-c-8"   :
-            case "blk-bishop-f-8"   :
-                gestBishop(arr);
-                break;
-            case "white-king-d-1"   :
-            case "blk-king-e-8"     :
-                gestKing(arr);
-                break;
-            case "white-queen-e-1"  :
-            case "blk-queen-d-8"    :
-                gestQueen(arr);
-                break;
-            case "white-pawn-a-2"   :
-            case "white-pawn-b-2"   :
-            case "white-pawn-c-2"   :
-            case "white-pawn-d-2"   :
-            case "white-pawn-e-2"   :
-            case "white-pawn-f-2"   :
-            case "white-pawn-g-2"   :
-            case "white-pawn-h-2"   :
-                gestWhitePawn(arr);
-                break;
-            case "blk-pawn-a-7"     :
-            case "blk-pawn-b-7"     :
-            case "blk-pawn-c-7"     :
-            case "blk-pawn-d-7"     :
-            case "blk-pawn-e-7"     :
-            case "blk-pawn-f-7"     :
-            case "blk-pawn-g-7"     :
-            case "blk-pawn-h-7"     :
-                gestBlackPawn(arr);
-                break;
-        }
-    }else if(clicked!=null&&$("#" + ev.id).children("img").prop("id") == null&&$("#"+clicked).prop("class")==nowMoving){
-        var cnt=0;
-        for (var x = 0; x < guested.length; x++) {
-            if (guested[x]=="#"+ev.id) {
-                var peas = $("#" + clicked).clone();
-                var oldId = "#" + $("#" + clicked).parent("div").prop("id");
-                $("#" + clicked).remove();
-                $("#" + ev.id).append(peas);
-                for (var y = 0; y < peases.length; y++) {
-                    if (peases[y]==oldId) {
-                        peases[y] = "#" + ev.id;
-                        break;
-                    }
-                }
-                clicked = null;
-                var last = nowMoving;
-                nowMoving = lastMoving;
-                $("#test").text(nowMoving)
-                lastMoving = last;
-                break;
-            }else cnt++;
-        }
-        if(guested.length==cnt) clicked=null;
-        guested = [];
-    }else if (clicked!=null&&$("#" + ev.id).children("img").prop("id") != null&&$("#"+clicked).prop("class")==nowMoving&&$("#" + ev.id).children("img").prop("class")==lastMoving) {
-        for (var x = 0; x < guested.length; x++) {
-            if (guested[x] == "#"+ev.id) {
-                var peas = $("#"+clicked).clone();
-                var oldId = "#"+$("#"+clicked).parent("div").prop("id");
-                var removeId = $("#"+ev.id).parent("div").prop("id");
-                $("#"+clicked).remove();
-                $("#"+ev.id).children("img").remove();
-                $("#"+ev.id).append(peas);
-                for (var y = 0; y < peases.length; y++) {
-                    if (peases[y]==oldId) {
-                        peases[y] = "removed";
-                        break;
-                    }
-                }
-                clicked = null;
-                var last = nowMoving;
-                nowMoving = lastMoving;
-                $("#test").text(nowMoving)
-                lastMoving = last;;
-                guested = [];
-                break;
-            }
-        }
-    }
 }
 
 function idBreaker(ev){
@@ -349,10 +347,10 @@ function gestRookMoved(ev) {
         var rdBlk = idBreaker(rodBlck[i]);
         for(var j=0;j<tempGuested.length;j++){
             var tempId = idBreaker(tempGuested[j]);
-            if(i==0&&rdBlk[1]>=tempId[1]&&tempId[1]>id[1]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
-            else if(i==1&&rdBlk[0]<=tempId[0]&&tempId[0]<id[0]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
-            else if(i==2&&rdBlk[1]<=tempId[1]&&tempId[1]<id[1]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
-            else if(i==3&&rdBlk[0]>=tempId[0]&&tempId[0]>id[0]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
+            if(i==0&&rdBlk[1]>=tempId[1]&&tempId[1]>id[1]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
+            else if(i==1&&rdBlk[0]<=tempId[0]&&tempId[0]<id[0]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
+            else if(i==2&&rdBlk[1]<=tempId[1]&&tempId[1]<id[1]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
+            else if(i==3&&rdBlk[0]>=tempId[0]&&tempId[0]>id[0]&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
         }
     }
 }
@@ -364,33 +362,44 @@ function gestBishopMoved(ev) {
         var rdBlk=idBreaker(rodBlck[i]);
         for(var j=0;j<tempGuested.length;j++){
             var tempId = idBreaker(tempGuested[j]);
-            if(i==0&&(tempId[0]<=rdBlk[0]&&tempId[1]<=rdBlk[1]&&tempId[0]>id[0]&&tempId[1]>id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
-            else if(i==1&&(tempId[0]>=rdBlk[0]&&tempId[1]<=rdBlk[1]&&tempId[0]<id[0]&&tempId[1]>id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
-            else if(i==2&&(tempId[0]>=rdBlk[0]&&tempId[1]>=rdBlk[1]&&tempId[0]<id[0]&&tempId[1]<id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
-            else if(i==3&&(tempId[0]<=rdBlk[0]&&tempId[1]>=rdBlk[1]&&tempId[0]>id[0]&&tempId[1]<id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving) guested[g++] = tempGuested[j];
+            if(i==0&&(tempId[0]<=rdBlk[0]&&tempId[1]<=rdBlk[1]&&tempId[0]>id[0]&&tempId[1]>id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
+            else if(i==1&&(tempId[0]>=rdBlk[0]&&tempId[1]<=rdBlk[1]&&tempId[0]<id[0]&&tempId[1]>id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
+            else if(i==2&&(tempId[0]>=rdBlk[0]&&tempId[1]>=rdBlk[1]&&tempId[0]<id[0]&&tempId[1]<id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
+            else if(i==3&&(tempId[0]<=rdBlk[0]&&tempId[1]>=rdBlk[1]&&tempId[0]>id[0]&&tempId[1]<id[1])&&$(tempGuested[j]).children("img").prop("class")!=nowMoving[0]) guested[g++] = tempGuested[j];
         }
     }
 }
 
-function selectAllMovedSqrs() {
-    for(var i=0;i<guested.length;i++){
-        if(rodBlck.length!=0){
-            for(var j=0;j<rodBlck.length;j++){
-                if(guested[i]==rodBlck[j]){
-                    $(guested[i]).css("box-shadow","inset 0 0 4em rgba(255,108,78,0.9)");
-                    $(guested[i]).css("background-color","rgba(255,250,6,0.9)");
-                    continue;
-                }else $(guested[i]).css("background-color","rgba(181,255,30,0.67)");
+function selectAllMovedSqrs(ev) {
+    L1:for (var i = 0; i < guested.length; i++) {
+        for (var j = 0; j < peases.length; j++) {
+            if (peases[j] != "removed" && peases[j] == guested[i] && $("#" + clicked).prop("class") == nowMoving[0] && $(guested[i]).children("img").prop("class") == lastMoving[0]) {
+                $(guested[i]).css("box-shadow", "inset 0 0 4em rgba(255,108,78,1)");
+                $(guested[i]).css("background-color", "rgba(255,250,6,1)");
+                continue L1;
             }
-        }else $(guested[i]).css("background-color","rgba(181,255,30,0.67)");
+            else if (peases[j] != "removed" && peases[j] == guested[i] && $("#" + clicked).prop("class") == nowMoving[0] && $(guested[i]).children("img").prop("class") != lastMoving[0]) continue L1;
+        }
+        if(checking != "checkKing") $(guested[i]).css("background-color", "rgba(181,255,30,1)");
     }
+    // if(checking == "checkKing"&&check != "Checked"){
+    //     var king = lastMoving[0] == "peass black" ? "white-king-d-1" : "blk-king-e-8";
+    //     var i = lastMoving[0] == "peass black" ? 0 : 16;
+    //     var e = lastMoving[0] == "peass black" ? 16 : 32;
+    //     var k = lastMoving[0] == "peass black" ? 16 : 0;
+    //     var l = lastMoving[0] == "peass black" ? 32 : 16;
+    //     var possion = "";
+    //     for(i;i<e;i++){
+    //         if($(peases[i]).children("img").prop("id")==king) possion=peases[i];
+    //     }
+    //     for(var j=0;j<rodBlck.length;j++){
+    //         if(rodBlck[j]==possion){
+    //             check = "Checked";
+    //             console.log(rodBlck[j]);
+    //             break;
+    //         }
+    //         else check = "";
+    //     }
+    //     console.log(check);
+    // }
 }
-
-
-
-var possition=($(".container").width()/2)-($("#box").width()/2);
-$("#box").css("left",possition);
-// $(".row").css("left",possition);
-// console.log($("#box").left())
-
-// $("#col-id-top").css("left",$("#box").left())
