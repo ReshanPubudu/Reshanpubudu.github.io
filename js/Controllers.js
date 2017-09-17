@@ -16,6 +16,7 @@ var checking = "";
 var check = "";
 var lastMovedPeas=["",""];
 var movinHisrory = "";
+var z=0;
 
 function mouseClick(id){
     $("#notification").text("");
@@ -25,10 +26,9 @@ function mouseClick(id){
 function SelectOrMove(id) {
     resetBackground();
     if((clicked==null&&$("#" + id).children("img").prop("id") != null&&$("#" + id).children("img").prop("class")==nowMoving[0])||
-        (clicked!=null&&$("#" + id).children("img").prop("id") != null&&$("#" + id).children("img").prop("class")==nowMoving[0])||
-        checking=="checkKing"/*(clicked==null&&$("#" + id).children("img").prop("id") == null&&$("#" + id).children("img").prop("class")!=nowMoving[0])*/){
+        (clicked!=null&&$("#" + id).children("img").prop("id") != null&&$("#" + id).children("img").prop("class")==nowMoving[0])||checking=="checkKing"){
         clicked = $("#" + id).children("img").prop("id");
-        if (clicked != null&&$("#" + id).children("img").prop("class")==nowMoving[0]) $("#" + id).css("background-color", "rgba(181,255,30,1)");
+		if (clicked != null&&$("#" + id).children("img").prop("class")==nowMoving[0]) $("#" + id).css("background-color", "rgba(181,255,30,1)");
         switch ($("#" + id).children().prop("id")) {
             case "white-rook-a-1"   :
             case "white-rook-h-1"   :
@@ -63,7 +63,7 @@ function SelectOrMove(id) {
             case "blk-pawn-g-7"     :
             case "blk-pawn-h-7"     : gestBlackPawn(id); break;
         }
-    }else if(clicked!=null&&$("#" + id).children("img").prop("id") == null&&$("#"+clicked).prop("class")==nowMoving[0]){
+    }else if(clicked!=null&&$("#" + id).children("img").prop("id") == null&&$("#"+clicked).prop("class")==nowMoving[0]&&checking!="checkKing"){
         var cnt=0;
         for (var x = 0; x < guested.length; x++) {
             if (guested[x]=="#"+id) {
@@ -71,6 +71,10 @@ function SelectOrMove(id) {
                 var oldId = "#" + $("#" + clicked).parent("div").prop("id");
                 $("#" + clicked).remove();
                 $("#" + id).append(peas);
+                checking = "checkKing";
+                SelectOrMove(id);
+                checking = "";
+				rot();
                 for (var y = 0; y < peases.length; y++) {
                     if (peases[y]==oldId) {
                         peases[y] = "#" + id;
@@ -90,9 +94,9 @@ function SelectOrMove(id) {
         if(guested.length==cnt) clicked=null;
         guested = [];
         checking = "checkKing";
-        // SelectOrMove(id);
+        SelectOrMove(id);
         checking = "";
-    }else if (clicked!=null&&$("#" + id).children("img").prop("id") != null&&$("#"+clicked).prop("class")==nowMoving[0]&&$("#" + id).children("img").prop("class")==lastMoving[0]) {
+    }else if (clicked!=null&&$("#" + id).children("img").prop("id") != null&&$("#"+clicked).prop("class")==nowMoving[0]&&$("#" + id).children("img").prop("class")==lastMoving[0]&&checking!="checkKing") {
         for (var x = 0; x < guested.length; x++) {
             if (guested[x] == "#"+id/*&&($("#"+id).children("img").prop("id")!=nowMoving[1])*/) {
                 var peas = $("#"+clicked).clone();
@@ -101,6 +105,10 @@ function SelectOrMove(id) {
                 $("#"+clicked).remove();
                 $("#"+id).children("img").remove();
                 $("#"+id).append(peas);
+				checking = "checkKing";
+                SelectOrMove(id);
+                checking = "";
+                rot();
                 for (var y = 0; y < peases.length; y++) {
                     if (peases[y]==oldId) {
                         peases[y] = "removed";
@@ -108,8 +116,6 @@ function SelectOrMove(id) {
                         break;
                     }
                 }
-                // $("#container2").css("transform","rotate(180deg)")
-                $("#container2").rotate({ animateTo:180});
                 clicked = null;
                 var last = nowMoving[0];
                 nowMoving[0] = lastMoving[0];
@@ -119,7 +125,7 @@ function SelectOrMove(id) {
         }
         guested = [];
         checking = "checkKing";
-        // SelectOrMove(id);
+        SelectOrMove(id);
         checking = "";
     }
 }
@@ -382,24 +388,53 @@ function selectAllMovedSqrs(ev) {
         }
         if(checking != "checkKing") $(guested[i]).css("background-color", "rgba(181,255,30,1)");
     }
-    // if(checking == "checkKing"&&check != "Checked"){
-    //     var king = lastMoving[0] == "peass black" ? "white-king-d-1" : "blk-king-e-8";
-    //     var i = lastMoving[0] == "peass black" ? 0 : 16;
-    //     var e = lastMoving[0] == "peass black" ? 16 : 32;
-    //     var k = lastMoving[0] == "peass black" ? 16 : 0;
-    //     var l = lastMoving[0] == "peass black" ? 32 : 16;
-    //     var possion = "";
-    //     for(i;i<e;i++){
-    //         if($(peases[i]).children("img").prop("id")==king) possion=peases[i];
-    //     }
-    //     for(var j=0;j<rodBlck.length;j++){
-    //         if(rodBlck[j]==possion){
-    //             check = "Checked";
-    //             console.log(rodBlck[j]);
-    //             break;
-    //         }
-    //         else check = "";
-    //     }
-    //     console.log(check);
-    // }
+    if(checking == "checkKing"&&check != "Checked"&&z!=1){
+        var king = lastMoving[0] == "peass black" ? "white-king-d-1" : "blk-king-e-8";
+        var i = lastMoving[0] == "peass black" ? 0 : 16;
+        var e = lastMoving[0] == "peass black" ? 16 : 32;
+        var l = lastMoving[0] == "peass black" ? 0 : 16;
+		var k = lastMoving[0] == "peass black" ? 16 : 32;
+        var possion = "";
+		z=1;
+        for(i;i<e;i++){
+            if($(peases[i]).children("img").prop("id")==king) {
+                possion = peases[i];
+                break;
+            }
+        }
+		
+		for(l;l<k;l++){
+			console.log(k);
+			//SelectOrMove(peases[k]);
+			console.log(peases[k]);
+		}
+		z=0;
+		
+        // for(var j=0;j<rodBlck.length;j++){
+        //     if(rodBlck[j]==possion){
+        //         check = "Checked";
+        //         console.log(rodBlck[j]);
+        //         break;
+        //     }
+        //     else check = "";
+        // }
+        
+		console.log(possion);
+    }
+}
+
+function rot(){
+	var rot = nowMoving[0] == "peass black" ? "180" : "0";
+	if(rot==0){
+		$("#box").css("transform","rotate(180deg)");
+		$("#box").css("transition","2s");
+		$(".peass").css("transform","rotate(180deg)");
+		$(".peass").css("transition","2s");
+	}
+	else {
+		$("#box").css("transform","rotate(360deg)");
+		$("#box").css("transition","2s");
+		$(".peass").css("transform","rotate(360deg)");
+		$(".peass").css("transition","2s");
+	}
 }
